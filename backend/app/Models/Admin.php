@@ -17,5 +17,5 @@ class Admin extends Model
 
     public $timestamps = true; // Timestamps
 
-    protected $fillable = ['id_admin', 'nama_admin', 'email_admin', 'password_admin', 'foto_admin', 'level_admin', 'status_admin']; // Field Table
+    protected $fillable = ['id_admin', 'name', 'email', 'password', 'profile', 'level', 'status']; // Field Table
 }

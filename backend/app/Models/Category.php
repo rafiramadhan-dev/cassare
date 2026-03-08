@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $table = "kategori"; // Name Table
+    protected $table = "category"; // Name Table
 
-    protected $primaryKey = "id_kategori"; // Primary Key
+    protected $primaryKey = "id_category"; // Primary Key
 
     public $incrementing = true; // Incrementing
 
     public $timestamps = true; // Timestamps
 
-    protected $fillable = ['id_kategori', 'nama_kategori', 'foto_kategori']; // Field Table
+    protected $fillable = ['id_category', 'name', 'photo']; // Field Table
 }
