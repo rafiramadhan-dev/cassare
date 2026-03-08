@@ -1,0 +1,34 @@
+/* Import Tailwind CSS */
+@import "tailwindcss";
+
+/* Font Geist Mono */
+@import "@fontsource/geist-mono/100.css";
+@import "@fontsource/geist-mono/200.css";
+@import "@fontsource/geist-mono/300.css";
+@import "@fontsource/geist-mono/400.css";
+@import "@fontsource/geist-mono/500.css";
+@import "@fontsource/geist-mono/600.css";
+@import "@fontsource/geist-mono/700.css";
+@import "@fontsource/geist-mono/800.css";
+@import "@fontsource/geist-mono/900.css";
+
+
+@theme {
+
+    /* Font */
+    --font-mono: "Geist Mono", ui-monospace;
+
+    /* Color Pallete */
+    --color-dark-theme-50: #fafafa;
+    --color-dark-theme-100: #f6f6f6;
+    --color-dark-theme-200: #e7e7e7;
+    --color-dark-theme-300: #d1d1d1;
+    --color-dark-theme-400: #888888;
+    --color-dark-theme-500: #6d6d6d;
+    --color-dark-theme-600: #5d5d5d;
+    --color-dark-theme-700: #4f4f4f;
+    --color-dark-theme-800: #2f2f2f;
+    --color-dark-theme-900: #171717;
+    --color-dark-theme-950: #0a0a0a;
+
+}
