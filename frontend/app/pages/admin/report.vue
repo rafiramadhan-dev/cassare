@@ -1,10 +1,10 @@
 <template>
    <div class="font-mono">
-      <!-- Kepala -->
+      <!-- Header -->
       <div class="w-full border-b border-dark-theme-800">
          <div class="px-4 py-4.5">
             <div class="flex flex-row">
-               <!-- Judul -->
+               <!-- Title -->
                <div>
                   <span class="text-dark-theme-50 text-base tracking-tight flex flex-row gap-2">
                      <div class="pr-2 border-r border-dark-theme-800">
@@ -23,7 +23,7 @@
          </div>
       </div>
 
-      <!-- Konten -->
+      <!-- Content -->
       <div></div>
    </div>
 </template>

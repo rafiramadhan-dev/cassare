@@ -1,10 +1,10 @@
 <template>
    <div class="font-mono">
-      <!-- Kepala -->
+      <!-- Header -->
       <div class="w-full border-b border-dark-theme-800">
          <div class="px-4 py-3.5">
             <div class="flex flex-row">
-               <!-- Judul -->
+               <!-- Title -->
                <div class="flex flex-row w-full items-center justify-between">
                   <span class="text-dark-theme-50 text-base tracking-tight flex flex-row gap-2">
                      <div class="pr-2 border-r border-dark-theme-800">
@@ -19,7 +19,7 @@
                      Produk
                   </span>
 
-                  <!-- Tombol Tambah -->
+                  <!-- Add Button -->
                   <button class="bg-dark-theme-50 rounded-md flex flex-row gap-2 p-1 hover:bg-dark-theme-300 text-dark-theme-950 hover:cursor-pointer text-sm items-center px-2">
                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <rect width="24" height="24" fill="none" />
@@ -32,14 +32,14 @@
          </div>
       </div>
 
-      <!-- Konten -->
+      <!-- Content -->
       <div></div>
    </div>
 </template>
 
 <script setup>
-// Layout Kasir
+// Layout Cashier
 definePageMeta({
-   layout: 'kasir',
+   layout: 'cashier',
 })
 </script>

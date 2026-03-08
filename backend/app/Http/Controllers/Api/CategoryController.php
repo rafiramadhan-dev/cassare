@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Kategori;
+use App\Models\Category;
 
-class KategoriController extends Controller
+class CategoryController extends Controller
 {
     // Index
     public function index() {}

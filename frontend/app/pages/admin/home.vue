@@ -1,10 +1,10 @@
 <template>
    <div class="font-mono">
-      <!-- Kepala -->
+      <!-- Headers -->
       <div class="w-full border-b border-dark-theme-800">
          <div class="px-4 py-4.5">
             <div class="flex flex-row">
-               <!-- Judul -->
+               <!-- Title -->
                <div>
                   <span class="text-dark-theme-50 text-base tracking-tight flex flex-row gap-2">
                      <div class="pr-2 border-r border-dark-theme-800">
@@ -20,9 +20,9 @@
          </div>
       </div>
 
-      <!-- Konten -->
+      <!-- Content -->
       <div class="w-full flex flex-row gap-4 p-4 items-center justify-center flex-1">
-         <!-- Kartu Kasir -->
+         <!-- Cashier Card -->
          <div class="w-full rounded-lg bg-dark-theme-900 border border-dark-theme-800 px-6 py-4 flex flex-col items-baseline justify-baseline gap-2">
             <div class="flex flex-col items-baseline justify-baseline gap-1">
                <span class="text-dark-theme-300 text-sm tracking-tight">Jumlah Kasir</span>
@@ -33,7 +33,7 @@
             </div>
          </div>
 
-         <!-- Kartu Laporan -->
+         <!-- Report Card -->
          <div class="w-full rounded-lg bg-dark-theme-900 border border-dark-theme-800 px-6 py-4 flex flex-col items-baseline justify-baseline gap-2">
             <div class="flex flex-col items-baseline justify-baseline gap-1">
                <span class="text-dark-theme-300 text-sm tracking-tight">Hasil Laporan</span>

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Transaksi;
+use App\Models\Transaction;
 
-class TransaksiController extends Controller
+class TransactionController extends Controller
 {
     // Index
     public function index() {}

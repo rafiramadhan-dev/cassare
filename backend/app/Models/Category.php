@@ -4,11 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Kategori extends Model
+class Category extends Model
 {
-    // Struktur Tabel Kategori
-
-    protected $table = "kategori"; // Nama Tabel
+    protected $table = "kategori"; // Name Table
 
     protected $primaryKey = "id_kategori"; // Primary Key
 
@@ -16,5 +14,5 @@ class Kategori extends Model
 
     public $timestamps = true; // Timestamps
 
-    protected $fillable = ['id_kategori', 'nama_kategori', 'foto_kategori']; // Field Tabel
+    protected $fillable = ['id_kategori', 'nama_kategori', 'foto_kategori']; // Field Table
 }

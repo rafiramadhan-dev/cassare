@@ -1,9 +1,9 @@
 <template>
-   <div v-if="tambahKategori" class="fixed inset-0 z-50 flex items-center justify-center bg-dark-theme-900/25 backdrop-blur-sm">
+   <div v-if="addCategory" class="fixed inset-0 z-50 flex items-center justify-center bg-dark-theme-900/25 backdrop-blur-sm">
       <div class="flex flex-col items-center justify-center bg-dark-theme-950 max-w-xl w-full p-6 rounded-xl border border-dark-theme-800">
-         <!-- Formulir Tambah Kategori -->
+         <!-- Form Add Category -->
          <form class="flex flex-col items-baseline justify-center gap-6">
-            <!-- Judul-->
+            <!-- Title -->
             <div class="flex flex-col gap-1 w-full">
                <div class="text-dark-theme-50 flex flex-row items-center justify-between">
                   <span class="text-lg font-medium tracking-tight">Tambah kategori baru.</span>
@@ -13,51 +13,42 @@
                   </svg>
                </div>
 
-               <!-- Subjudul -->
+               <!-- Subtitle -->
                <div>
                   <span class="text-dark-theme-300 text-base font-normal tracking-tight">Masukkan gambar dan nama untuk menambahkan kategori baru.</span>
                </div>
             </div>
 
-            <!-- Kotak Input Foto Kategori -->
             <div class="flex flex-col gap-2 items-baseline justify-baseline w-full">
+               <!-- Label Category Photo -->
                <div>
-                  <!-- Label Foto Kategori -->
                   <span class="text-dark-theme-50 text-base font-medium tracking-tight">Foto Kategori</span>
                </div>
 
-               <div class="flex flex-row gap-3 items-center w-full">
-                  <label for="gambar" class="bg-dark-theme-50 rounded-md flex flex-row gap-2 px-4 py-2 hover:bg-dark-theme-300 text-dark-theme-950 hover:cursor-pointer text-base items-center">Tambah gambar kategori</label>
-                  <input type="file" accept="image/jpeg, image/png, image/jpg" id="gambar" class="hidden" />
-
-                  <!-- Nama File -->
-                  <span v-if="fileName" class="text-dark-theme-300 text-sm">
-                     {{ fileName }}
-                  </span>
-                  <span v-else class="text-dark-theme-300 text-sm">Belum ada file dipilih</span>
-               </div>
+               <!-- Input Box Category Photo -->
+               <div class="flex flex-row gap-3 items-center w-full"></div>
             </div>
 
-            <!-- Kotak Input Nama Kategori -->
             <div class="flex flex-col gap-2 items-baseline justify-baseline w-full">
+               <!-- Label Category Name -->
                <div>
-                  <!-- Label Nama Kategori -->
                   <span class="text-dark-theme-50 text-base font-medium tracking-tight">Nama Kategori</span>
                </div>
 
+               <!-- Input Box Category Name -->
                <div class="flex flex-row w-full">
                   <input type="text" placeholder="Masukkan nama kategori" class="placeholder:text-dark-theme-300 placeholder:text-base placeholder:tracking-tight text-base tracking-tight text-dark-theme-50 bg-dark-theme-900/95 w-full px-4 py-2 rounded-md focus:outline-2 focus:outline-dark-theme-100 border border-dark-theme-800" />
                </div>
             </div>
 
-            <!-- Tombol Tambah -->
+            <!-- Add Button -->
             <div class="flex flex-row w-full">
                <div class="flex flex-row w-full">
                   <button type="submit" class="text-dark-theme-950 bg-dark-theme-50 p-2 rounded-md w-full text-md tracking-tight hover:bg-dark-theme-300 hover:cursor-pointer">Simpan</button>
                </div>
             </div>
 
-            <!-- Pesan Error -->
+            <!-- Error Message -->
             <div v-if="error" class="w-full text-dark-theme-50 bg-red-500 text-base flex flex-row items-baseline justify-baseline px-4 py-2 rounded-md tracking-tight"></div>
          </form>
       </div>
@@ -65,11 +56,11 @@
 </template>
 
 <script setup>
-// Membuka pop up
-const tambahKategori = defineModel({ type: Boolean, default: false })
+// Open Pop Up
+const addCategory = defineModel({ type: Boolean, default: false })
 
-// Menutup pop up
+// Close Pop Up
 const close = () => {
-   tambahKategori.value = false
+   addCategory.value = false
 }
 </script>

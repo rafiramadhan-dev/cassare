@@ -1,10 +1,10 @@
 <template>
    <div class="font-mono">
-      <!-- Kepala -->
+      <!-- Header -->
       <div class="w-full border-b border-dark-theme-800">
          <div class="px-4 py-3.5">
             <div class="flex flex-row">
-               <!-- Judul -->
+               <!-- Title -->
                <div class="flex flex-row w-full items-center justify-between">
                   <span class="text-dark-theme-50 text-base tracking-tight flex flex-row gap-2">
                      <div class="pr-2 border-r border-dark-theme-800">
@@ -21,8 +21,8 @@
                      Kategori
                   </span>
 
-                  <!-- Tombol Tambah -->
-                  <button @click="tambahKategori = true" class="bg-dark-theme-50 rounded-md flex flex-row gap-2 p-1 hover:bg-dark-theme-300 text-dark-theme-950 hover:cursor-pointer text-sm items-center px-2">
+                  <!-- Add Button -->
+                  <button @click="addCategory = true" class="bg-dark-theme-50 rounded-md flex flex-row gap-2 p-1 hover:bg-dark-theme-300 text-dark-theme-950 hover:cursor-pointer text-sm items-center px-2">
                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <rect width="24" height="24" fill="none" />
                         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M15 12h-3m0 0H9m3 0V9m0 3v3M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5" />
@@ -38,7 +38,7 @@
       <div></div>
 
       <!-- Pop Up -->
-      <TambahKategori v-model="tambahKategori" />
+      <AddCategory v-model="addCategory" />
    </div>
 </template>
 
@@ -47,10 +47,10 @@
 import { ref } from 'vue'
 
 // Pop Up
-const tambahKategori = ref(false)
+const addCategory = ref(false)
 
-// Layout Kasir
+// Layout Cashier
 definePageMeta({
-   layout: 'kasir',
+   layout: 'cashier',
 })
 </script>

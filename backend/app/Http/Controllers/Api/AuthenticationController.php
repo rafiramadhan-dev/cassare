@@ -13,7 +13,7 @@ class AuthenticationController extends Controller
     // Login
     public function login(Request $request)
     {
-        // Validasi
+        // Validator
         $validator = Validator::make(
             $request->all(),
             [
@@ -37,7 +37,6 @@ class AuthenticationController extends Controller
         }
         $validated = $validator->validated();
 
-        // Cek email
         $admin = Admin::where(
             "email_admin",
             $validated["email_admin"],
@@ -46,7 +45,6 @@ class AuthenticationController extends Controller
             return response()->json(["error" => "Email tidak ditemukan!"], 404);
         }
 
-        // Cek status
         if ($admin->status_admin === "Blokir") {
             return response()->json(
                 [
@@ -56,7 +54,6 @@ class AuthenticationController extends Controller
             );
         }
 
-        // Cek password
         $valid = false;
         try {
             $valid =
@@ -88,7 +85,6 @@ class AuthenticationController extends Controller
 
         $this->block($validated["email_admin"], true);
 
-        // Token sanctum
         $token = $admin->createToken("token_admin")->plainTextToken;
 
         return response()->json([
@@ -112,7 +108,7 @@ class AuthenticationController extends Controller
     // Verify Email
     public function verifyEmail(Request $request)
     {
-        // Validasi
+        // Validation
         $validator = Validator::make(
             $request->all(),
             [
@@ -133,7 +129,6 @@ class AuthenticationController extends Controller
         }
         $validated = $validator->validated();
 
-        // Cek email
         $admin = Admin::where(
             "email_admin",
             $validated["email_admin"],
@@ -148,7 +143,6 @@ class AuthenticationController extends Controller
             );
         }
 
-        // Verifikasi email
         session(["verified_email" => $validated["email_admin"]]);
         return response()->json(
             [
@@ -164,7 +158,7 @@ class AuthenticationController extends Controller
     // Change Password
     public function changePassword(Request $request)
     {
-        // Validator
+        // Validation
         $validator = Validator::make(
             $request->all(),
             [
@@ -191,13 +185,11 @@ class AuthenticationController extends Controller
         }
         $validated = $validator->validated();
 
-        // Verifikasi email
         $admin = Admin::where(
             "email_admin",
             $validated["email_admin"],
         )->first();
 
-        // Perbarui password
         $admin->password_admin = encrypt($validated["password_baru"]);
         $admin->save();
         session()->forget("verified_email");
@@ -223,7 +215,6 @@ class AuthenticationController extends Controller
             return null;
         }
 
-        // Cache dan attempts
         if ($success) {
             Cache::forget("attempts_{$email_admin}");
             return null;

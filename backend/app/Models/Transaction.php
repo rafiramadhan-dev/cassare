@@ -4,11 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Transaksi extends Model
+class Transaction extends Model
 {
-    // Struktur Tabel Transaksi
-
-    protected $table = "transaksi"; // Nama Tabel
+    protected $table = "transaksi"; // Name Table
 
     protected $primaryKey = "id_transaksi"; // Primary Key
 
@@ -16,5 +14,5 @@ class Transaksi extends Model
 
     public $timestamps = true; // Timestamps
 
-    protected $fillable = ['id_transaksi', 'harga_transaksi', 'keuntungan_transaksi', 'detail_transaksi', 'level_admin', 'fid_admin', 'fid_produk']; // Field Tabel
+    protected $fillable = ['id_transaksi', 'harga_transaksi', 'keuntungan_transaksi', 'detail_transaksi', 'level_admin', 'fid_admin', 'fid_produk']; // Field Table
 }

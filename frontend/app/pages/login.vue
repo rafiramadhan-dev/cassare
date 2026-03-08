@@ -1,51 +1,51 @@
 <template>
    <div class="flex flex-col h-screen items-center justify-center bg-dark-theme-950">
       <div class="flex flex-col items-center justify-center max-w-sm w-full">
-         <!-- Formulir -->
+         <!-- Form Login -->
          <form @submit.prevent="handleLogin" class="flex flex-col gap-6 font-mono w-full">
-            <!-- Judul -->
             <div class="flex flex-col gap-1 items-baseline justify-baseline w-full">
+               <!-- Title -->
                <span class="text-dark-theme-50 text-lg font-medium tracking-tight">Masuk ke akun anda.</span>
 
-               <!-- Subjudul -->
+               <!-- Subtitle -->
                <span class="text-dark-theme-300 text-base font-normal tracking-tight">Masukkan email dan password di bawah untuk masuk akun anda.</span>
             </div>
 
-            <!-- Kotak Input Email -->
             <div class="flex flex-col gap-2 items-baseline justify-baseline w-full">
+               <!-- Label Email -->
                <div>
-                  <!-- Label Email -->
                   <span class="text-dark-theme-50 text-base font-medium tracking-tight">Email</span>
                </div>
 
+               <!-- Input Box Email -->
                <div class="flex flex-row w-full">
                   <input v-model="email" class="placeholder:text-dark-theme-300 placeholder:text-base placeholder:tracking-tight text-base tracking-tight text-dark-theme-50 bg-dark-theme-900/95 w-full px-4 py-2 rounded-md focus:outline-2 focus:outline-dark-theme-100 border border-dark-theme-800" type="email" placeholder="Masukkan email anda" />
                </div>
             </div>
 
-            <!-- Kotak Input Password -->
             <div class="flex flex-col gap-2 items-baseline justify-baseline w-full">
                <div class="flex flex-row items-center justify-between w-full">
                   <!-- Label Password -->
                   <span class="text-dark-theme-50 text-base font-medium tracking-tight">Password</span>
 
-                  <!-- Link Lupa Password -->
-                  <NuxtLink to="/lupaPassword" class="text-dark-theme-50 text-base font-medium tracking-tight hover:underline-offset-2 hover:underline decoration-2">Lupa password?</NuxtLink>
+                  <!-- Link Forgot Password -->
+                  <NuxtLink to="/forgotPassword" class="text-dark-theme-50 text-base font-medium tracking-tight hover:underline-offset-2 hover:underline decoration-2">Lupa password?</NuxtLink>
                </div>
 
+               <!-- Input Box Password -->
                <div class="flex flex-row w-full">
                   <input v-model="password" class="placeholder:text-dark-theme-300 placeholder:text-base placeholder:tracking-tight text-base tracking-tight text-dark-theme-50 bg-dark-theme-900/95 w-full px-4 py-2 rounded-md focus:outline-2 focus:outline-dark-theme-100 border border-dark-theme-800" type="password" placeholder="Masukkan password anda" />
                </div>
             </div>
 
-            <!-- Tombol Masuk -->
+            <!-- Enter Button -->
             <div class="flex flex-row w-full">
                <button type="submit" :disabled="loading" class="text-dark-theme-950 bg-dark-theme-50 p-2 rounded-md w-full text-md tracking-tight hover:bg-dark-theme-300 hover:cursor-pointer">
                   {{ loading ? 'Memproses...' : 'Masuk' }}
                </button>
             </div>
 
-            <!-- Pesan Error -->
+            <!-- Error Message Login -->
             <div v-if="error" class="w-full text-dark-theme-50 bg-red-500 text-base flex flex-row items-baseline justify-baseline px-4 py-2 rounded-md tracking-tight">
                {{ error }}
             </div>
@@ -59,14 +59,14 @@
 import { useAuthStore } from '@/stores/auth'
 import { ref } from 'vue'
 
-// Variabel
+// Variable
 const auth = useAuthStore()
 const email = ref('')
 const password = ref('')
 const loading = ref(false)
 const error = ref('')
 
-// Login
+// Login Function
 const handleLogin = async () => {
    error.value = ''
    loading.value = true

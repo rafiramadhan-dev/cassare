@@ -1,9 +1,9 @@
 <template>
    <div class="flex h-screen">
-      <!-- Sidebar Admin -->
+      <!-- Admin Sidebar -->
       <SidebarAdmin />
 
-      <!-- Halaman Admin -->
+      <!-- Admin Page -->
       <main class="flex-1 bg-dark-theme-950">
          <slot />
       </main>
