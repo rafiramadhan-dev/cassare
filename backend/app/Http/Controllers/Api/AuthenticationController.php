@@ -108,51 +108,96 @@ class AuthenticationController extends Controller
     // Verify Email
     public function verifyEmail(Request $request)
     {
+        $validator = Validator::make(
+            $request->all(),
+            ["email" => "required|email|max:255"],
+            ["email.required" => "Email harus diisi!"],
+        );
+        if ($validator->fails()) {
+            return response()->json([
+                "message" => "Verifikasi email gagal!",
+                "error" => $validator->errors()->first(),
+            ], 422);
+        }
+        $validated = $validator->validated();
+
+        $admin = Admin::where("email", $validated["email"])->first();
+        if (!$admin) {
+            return response()->json([
+                "message" => "Email tidak terdaftar!",
+                "error" => "Email tidak ditemukan!",
+            ], 404);
+        }
+
+        $otp = rand(100000, 999999);
+        Cache::put("otp_{$validated['email']}", $otp);
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://api.fonnte.com/send',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => http_build_query([
+                'target' => env('FONNTE_TARGET'),
+                'message' => "Kode OTP anda adalah: *{$otp}*",
+            ]),
+            CURLOPT_HTTPHEADER => [
+                'Authorization: ' . env('FONNTE_TOKEN'),
+            ],
+        ]);
+        $result = curl_exec($curl);
+        curl_close($curl);
+
+        $resultData = json_decode($result, true);
+        if (!$resultData['status']) {
+            return response()->json([
+                "message" => "Gagal mengirim kode OTP!",
+                "error" => "Pengiriman kode ke WhatsApp gagal, coba lagi!",
+            ], 500);
+        }
+
+        return response()->json([
+            "message" => "Kode OTP telah dikirim ke WhatsApp anda!",
+        ], 200);
+    }
+
+    // Verify Otp
+    public function verifyOtp(Request $request)
+    {
         // Validation
         $validator = Validator::make(
             $request->all(),
             [
                 "email" => "required|email|max:255",
+                "otp" => "required",
             ],
             [
                 "email.required" => "Email harus diisi!",
+                "otp.required" => "Kode OTP harus diisi!",
             ],
         );
         if ($validator->fails()) {
-            return response()->json(
-                [
-                    "message" => "Verifikasi email gagal!",
-                    "error" => $validator->errors()->first(),
-                ],
-                422,
-            );
+            return response()->json([
+                "message" => "Verifikasi kode OTP gagal!",
+                "error" => $validator->errors()->first(),
+            ], 422);
         }
         $validated = $validator->validated();
 
-        $admin = Admin::where(
-            "email",
-            $validated["email"],
-        )->first();
-        if (!$admin) {
-            return response()->json(
-                [
-                    "message" => "Email tidak terdaftar!",
-                    "error" => "Email tidak ditemukan!",
-                ],
-                404,
-            );
+        $cachedOtp = Cache::get("otp_{$validated['email']}");
+        if (!$cachedOtp || $cachedOtp != $validated['otp']) {
+            return response()->json([
+                "message" => "Verifikasi kode OTP gagal!",
+                "error" => "Kode OTP salah!",
+            ], 422);
         }
 
-        session(["verified_email" => $validated["email"]]);
-        return response()->json(
-            [
-                "message" => "Email berhasil diverifikasi!",
-                "data" => [
-                    "email" => $admin->email,
-                ],
-            ],
-            200,
-        );
+        Cache::forget("otp_{$validated['email']}");
+        Cache::put("verified_email_{$validated['email']}", true, now()->addMinutes(10));
+
+        return response()->json([
+            "message" => "Kode OTP berhasil diverifikasi!",
+        ], 200);
     }
 
     // Change Password
@@ -164,7 +209,7 @@ class AuthenticationController extends Controller
             [
                 "email" => "required|email|max:255",
                 "new_password" => "required|min:8|max:12",
-                "confirmation_password" => "required|min:8|max:12|same:password_baru",
+                "confirmation_password" => "required|min:8|max:12|same:new_password",
             ],
             [
                 "new_password.required" => "Kolom password baru harus diisi!",

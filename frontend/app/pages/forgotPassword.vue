@@ -40,10 +40,10 @@
          </form>
 
          <!-- Form OTP Code -->
-         <form v-if="step === ''" @submit.prevent="handleVerifyOtpCode" class="flex flex-col gap-6 font-mono w-full">
+         <form v-if="step === 'otp'" @submit.prevent="handleVerifyOtpCode" class="flex flex-col gap-6 font-mono w-full">
             <!-- Title -->
             <div class="flex flex-col gap-1 items-baseline justify-baseline w-full">
-               <span class="text-dark-theme-50 text-lg font-medium tracking-tight">Masukkan kode OTP.</span>
+               <span class="text-dark-theme-50 text-lg font-medium tracking-tight">Masukkan kode OTP!</span>
 
                <!-- Subtitle -->
                <span class="text-dark-theme-300 text-base font-normal tracking-tight">Kode OTP sudah dikirim melalui nomor WhatsApp anda.</span>
@@ -57,7 +57,7 @@
 
                <!-- Input Box OTP Code -->
                <div class="flex flex-row w-full">
-                  <input v-model="otpCode" class="placeholder:text-dark-theme-300 placeholder:text-base placeholder:tracking-tight text-base tracking-tight text-dark-theme-50 bg-dark-theme-900/95 w-full px-4 py-2 rounded-md focus:outline-2 focus:outline-dark-theme-100 border border-dark-theme-800" type="password" placeholder="Masukkan kode OTP anda" />
+                  <input v-model="otpCode" class="placeholder:text-dark-theme-300 placeholder:text-base placeholder:tracking-tight text-base tracking-tight text-dark-theme-50 bg-dark-theme-900/95 w-full px-4 py-2 rounded-md focus:outline-2 focus:outline-dark-theme-100 border border-dark-theme-800" type="text" placeholder="Masukkan kode OTP anda" />
                </div>
             </div>
 
@@ -110,7 +110,7 @@
 
             <!-- Update Button -->
             <div class="flex flex-row w-full">
-               <button type="submit" :disabled="loadingEmail" class="text-dark-theme-950 bg-dark-theme-50 p-2 rounded-md w-full text-md tracking-tight hover:bg-dark-theme-300 hover:cursor-pointer">
+               <button type="submit" :disabled="loadingPassword" class="text-dark-theme-950 bg-dark-theme-50 p-2 rounded-md w-full text-md tracking-tight hover:bg-dark-theme-300 hover:cursor-pointer">
                   {{ loadingPassword ? 'Memproses...' : 'Perbarui' }}
                </button>
             </div>
@@ -150,7 +150,7 @@ const handleVerifyEmail = async () => {
 
    try {
       await auth.verifyEmail(email.value)
-      step.value = 'password'
+      step.value = 'otp'
    } catch (err) {
       errorEmail.value = err.message || 'Verifikasi email gagal!'
    } finally {
@@ -160,7 +160,23 @@ const handleVerifyEmail = async () => {
 
 // Verify OTP Code Function
 const handleVerifyOtpCode = async () => {
+   errorOtpCode.value = ''
+   loadingOtpCode.value = true
 
+   try {
+      await auth.verifyOtp(email.value, otpCode.value)
+      step.value = 'password'
+   } catch (err) {
+      if (err instanceof Error) {
+         errorOtpCode.value = err.message
+      } else if (typeof err === 'string') {
+         errorOtpCode.value = err
+      } else {
+         errorOtpCode.value = 'Verifikasi OTP gagal!'
+      }
+   } finally {
+      loadingOtpCode.value = false
+   }
 }
 
 // Change Password Function

@@ -1,149 +1,173 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia'
 
-export const useAuthStore = defineStore("auth", {
-  // State adalah untuk tempat simpan data
-  state: () => ({
-    token: null,
-    admin: null,
-  }),
+export const useAuthStore = defineStore('auth', {
+   // State (Save Data)
+   state: () => ({
+      token: null,
+      admin: null,
+   }),
 
-  // Getters adalah untuk mengambil data dari State
-  getters: {
-    isAuthenticated: (state) => !!state.token,
-    getAdmin: (state) => state.admin,
-  },
+   // Getters (Take Data From State)
+   getters: {
+      isAuthenticated: (state) => !!state.token,
+      getAdmin: (state) => state.admin,
+   },
 
-  // Actions adalah untuk function ubah data
-  actions: {
-    // Login
-    async login(email, password) {
-      try {
-        const config = useRuntimeConfig();
+   // Actions (Function To Change Data)
+   actions: {
+      // Login
+      async login(email, password) {
+         try {
+            const config = useRuntimeConfig()
 
-        const response = await fetch(`${config.public.api}/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            email_admin: email,
-            password_admin: password,
-          }),
-        });
+            const response = await fetch(`${config.public.apiKey}/login`, {
+               method: 'POST',
+               headers: {
+                  'Content-Type': 'application/json',
+                  Accept: 'application/json',
+               },
+               credentials: 'include',
+               body: JSON.stringify({
+                  email: email,
+                  password: password,
+               }),
+            })
 
-        const data = await response.json();
+            const data = await response.json()
 
-        if (!response.ok) {
-          throw new Error(data.error || data.message || "Login gagal!");
-        }
+            if (!response.ok) {
+               throw new Error(data.error || data.message || 'Login gagal!')
+            }
 
-        this.token = data.token;
-        this.admin = data.admin;
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("admin", JSON.stringify(data.admin));
+            this.token = data.token
+            this.admin = data.admin
+            localStorage.setItem('token', data.token)
+            localStorage.setItem('admin', JSON.stringify(data.admin))
 
-        return data;
-      } catch (error) {
-        throw error;
-      }
-    },
+            return data
+         } catch (error) {
+            throw error
+         }
+      },
 
-    // Logout
-    async logout() {
-      const config = useRuntimeConfig();
+      // Logout
+      async logout() {
+         const config = useRuntimeConfig()
 
-      await fetch(`${config.public.api}/logout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${this.token}`,
-        },
-        credentials: "include",
-      });
+         await fetch(`${config.public.apiKey}/logout`, {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+               Accept: 'application/json',
+               Authorization: `Bearer ${this.token}`,
+            },
+            credentials: 'include',
+         })
 
-      this.token = null;
-      this.admin = null;
+         this.token = null
+         this.admin = null
 
-      localStorage.removeItem("token");
-      localStorage.removeItem("admin");
-    },
+         localStorage.removeItem('token')
+         localStorage.removeItem('admin')
+      },
 
-    // Verify Email
-    async verifyEmail(email) {
-      try {
-        const config = useRuntimeConfig();
-        const response = await fetch(`${config.public.api}/verifyEmail`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            email_admin: email,
-          }),
-        });
-        const data = await response.json();
-        if (!response.ok) {
-          throw new Error(
-            data.error || data.message || "Verifikasi email gagal!",
-          );
-        }
-        return data;
-      } catch (error) {
-        throw error;
-      }
-    },
+      // Verify Email
+      async verifyEmail(email) {
+         try {
+            const config = useRuntimeConfig()
+            const response = await fetch(`${config.public.apiKey}/verifyEmail`, {
+               method: 'POST',
+               headers: {
+                  'Content-Type': 'application/json',
+                  Accept: 'application/json',
+               },
+               credentials: 'include',
+               body: JSON.stringify({
+                  email: email,
+               }),
+            })
+            const data = await response.json()
+            if (!response.ok) {
+               throw new Error(data.error || data.message || 'Verifikasi email gagal!')
+            }
+            return data
+         } catch (error) {
+            throw error
+         }
+      },
 
-    // Change Password
-    async changePassword(email, passwordBaru, konfirmasiPassword) {
-      try {
-        const config = useRuntimeConfig();
-        const response = await fetch(`${config.public.api}/changePassword`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            email_admin: email,
-            password_baru: passwordBaru,
-            konfirmasi_password: konfirmasiPassword,
-          }),
-        });
-        const data = await response.json();
-        if (!response.ok) {
-          throw new Error(data.error || data.message || "Ubah password gagal!");
-        }
-        return data;
-      } catch (error) {
-        throw error;
-      }
-    },
+      // Verify OTP
+      async verifyOtp(email, otpCode) {
+         try {
+            const config = useRuntimeConfig()
+            const response = await fetch(`${config.public.apiKey}/verifyOtp`, {
+               method: 'POST',
+               headers: {
+                  'Content-Type': 'application/json',
+                  Accept: 'application/json',
+               },
+               credentials: 'include',
+               body: JSON.stringify({
+                  email: email,
+                  otp: otpCode,
+               }),
+            })
+            const data = await response.json()
+            if (!response.ok) {
+               throw new Error(data.error || data.message || 'Verifikasi OTP gagal!')
+            }
+            return data
+         } catch (error) {
+            throw error
+         }
+      },
 
-    // Unblock
-    async unblock() {},
+      // Change Password
+      async changePassword(email, newPassword, confirmationPassword) {
+         try {
+            const config = useRuntimeConfig()
+            const response = await fetch(`${config.public.apiKey}/changePassword`, {
+               method: 'POST',
+               headers: {
+                  'Content-Type': 'application/json',
+                  Accept: 'application/json',
+               },
+               credentials: 'include',
+               body: JSON.stringify({
+                  email: email,
+                  new_password: newPassword,
+                  confirmation_password: confirmationPassword,
+               }),
+            })
+            const data = await response.json()
+            if (!response.ok) {
+               throw new Error(data.error || data.message || 'Ubah password gagal!')
+            }
+            return data
+         } catch (error) {
+            throw error
+         }
+      },
 
-    // Redirect
-    redirect() {
-      const router = useRouter();
+      // Unblock
+      async unblock() {},
 
-      if (!this.admin) {
-        router.push("/login");
-        return;
-      }
+      // Redirect
+      redirect() {
+         const router = useRouter()
 
-      if (this.admin.level_admin === "Admin") {
-        router.push("/admin/beranda");
-      } else if (this.admin.level_admin === "Kasir") {
-        router.push("/kasir/beranda");
-      } else {
-        router.push("/login");
-      }
-    },
-  },
-});
+         if (!this.admin) {
+            router.push('/login')
+            return
+         }
+
+         if (this.admin.level_admin === 'Admin') {
+            router.push('/admin/home')
+         } else if (this.admin.level_admin === 'Kasir') {
+            router.push('/cashier/home')
+         } else {
+            router.push('/login')
+         }
+      },
+   },
+})
