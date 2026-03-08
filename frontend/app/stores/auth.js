@@ -161,9 +161,9 @@ export const useAuthStore = defineStore('auth', {
             return
          }
 
-         if (this.admin.level_admin === 'Admin') {
+         if (this.admin.level === 'Admin') {
             router.push('/admin/home')
-         } else if (this.admin.level_admin === 'Kasir') {
+         } else if (this.admin.level === 'Kasir') {
             router.push('/cashier/home')
          } else {
             router.push('/login')

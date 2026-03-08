@@ -45,7 +45,7 @@ class AuthenticationController extends Controller
             return response()->json(["error" => "Email tidak ditemukan!"], 404);
         }
 
-        if ($admin->status_admin === "Blokir") {
+        if ($admin->status === "Blokir") {
             return response()->json(
                 [
                     "error" => "Akun sudah diblokir!",
@@ -57,7 +57,7 @@ class AuthenticationController extends Controller
         $valid = false;
         try {
             $valid =
-                decrypt($admin->password_admin) ===
+                decrypt($admin->password) ===
                 $validated["password"];
         } catch (\Exception $e) {
             $valid = false;
@@ -235,7 +235,7 @@ class AuthenticationController extends Controller
             $validated["email"],
         )->first();
 
-        $admin->password_admin = encrypt($validated["new_password"]);
+        $admin->password = encrypt($validated["new_password"]);
         $admin->save();
         session()->forget("verified_email");
         return response()->json(
@@ -268,7 +268,7 @@ class AuthenticationController extends Controller
         $attempts = Cache::get("attempts_{$email}", 0) + 1;
         $remaining = 3 - $attempts;
         if ($attempts >= 3) {
-            $admin->status_admin = "Blokir";
+            $admin->status = "Blokir";
             $admin->save();
             Cache::forget("attempts_{$email}");
 
