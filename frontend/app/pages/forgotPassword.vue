@@ -39,6 +39,41 @@
             </div>
          </form>
 
+         <!-- Form OTP Code -->
+         <form v-if="step === ''" @submit.prevent="handleVerifyOtpCode" class="flex flex-col gap-6 font-mono w-full">
+            <!-- Title -->
+            <div class="flex flex-col gap-1 items-baseline justify-baseline w-full">
+               <span class="text-dark-theme-50 text-lg font-medium tracking-tight">Masukkan kode OTP.</span>
+
+               <!-- Subtitle -->
+               <span class="text-dark-theme-300 text-base font-normal tracking-tight">Kode OTP sudah dikirim melalui nomor WhatsApp anda.</span>
+            </div>
+
+            <div class="flex flex-col gap-2 items-baseline justify-baseline w-full">
+               <div class="flex flex-row items-center justify-between w-full">
+                  <!-- Label OTP Code -->
+                  <span class="text-dark-theme-50 text-base font-medium tracking-tight">Kode OTP</span>
+               </div>
+
+               <!-- Input Box OTP Code -->
+               <div class="flex flex-row w-full">
+                  <input v-model="otpCode" class="placeholder:text-dark-theme-300 placeholder:text-base placeholder:tracking-tight text-base tracking-tight text-dark-theme-50 bg-dark-theme-900/95 w-full px-4 py-2 rounded-md focus:outline-2 focus:outline-dark-theme-100 border border-dark-theme-800" type="password" placeholder="Masukkan kode OTP anda" />
+               </div>
+            </div>
+
+            <!-- Verification Button -->
+            <div class="flex flex-row w-full">
+               <button type="submit" :disabled="loadingOtpCode" class="text-dark-theme-950 bg-dark-theme-50 p-2 rounded-md w-full text-md tracking-tight hover:bg-dark-theme-300 hover:cursor-pointer">
+                  {{ loadingOtpCode ? 'Memproses...' : 'Verifikasi' }}
+               </button>
+            </div>
+
+            <!-- Error Message Password -->
+            <div v-if="errorOtpCode" class="w-full text-dark-theme-50 bg-red-500 text-base flex flex-row items-baseline justify-baseline px-4 py-2 rounded-md tracking-tight">
+               {{ errorOtpCode }}
+            </div>
+         </form>
+
          <!-- Form Password -->
          <form v-if="step === 'password'" @submit.prevent="handleChangePassword" class="flex flex-col gap-6 font-mono w-full">
             <!-- Title -->
@@ -100,6 +135,9 @@ const step = ref('email')
 const email = ref('')
 const loadingEmail = ref(false)
 const errorEmail = ref('')
+const otpCode = ref('')
+const loadingOtpCode = ref(false)
+const errorOtpCode = ref('')
 const newPassword = ref('')
 const confirmationPassword = ref('')
 const loadingPassword = ref(false)
@@ -118,6 +156,11 @@ const handleVerifyEmail = async () => {
    } finally {
       loadingEmail.value = false
    }
+}
+
+// Verify OTP Code Function
+const handleVerifyOtpCode = async () => {
+
 }
 
 // Change Password Function
