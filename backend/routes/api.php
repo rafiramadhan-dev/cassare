@@ -9,22 +9,30 @@ use App\Http\Controllers\Api\TransactionController;
 
 // Login
 Route::post('/login', [AuthenticationController::class, 'login']);
-
 // Verify Email
 Route::post('/verifyEmail', [AuthenticationController::class, 'verifyEmail']);
-
 // Verify Otp
 Route::post('/verifyOtp', [AuthenticationController::class, 'verifyOtp']);
-
 // Change Password
 Route::post('/changePassword', [AuthenticationController::class, 'changePassword']);
 
 Route::middleware('auth:sanctum')->group(function () {
-
     // Unblock
     Route::post('/unblock', [AuthenticationController::class, 'unblock']);
-
     // Logout
     Route::post('/logout', [AuthenticationController::class, 'logout']);
 
+    // Category
+    Route::prefix('category')->group(function () {
+        // Index
+        Route::get('/index', [CategoryController::class, 'index']);
+        // Store
+        Route::post('/store', [CategoryController::class, 'store']);
+        // Show
+        Route::post('/show', [CategoryController::class, 'show']);
+        // Update
+        Route::post('/update', [CategoryController::class, 'update']);
+        // Destroy
+        Route::post('/destroy', [CategoryController::class, 'destroy']);
+    });
 });

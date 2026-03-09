@@ -125,10 +125,10 @@
 
 <script setup>
 // Import
-import { useAuthStore } from '@/stores/auth'
+import { useAuthenticationStore } from '~/stores/authentication'
 
 // Variable
-const auth = useAuthStore()
+const auth = useAuthenticationStore()
 const route = useRoute()
 
 // Check Page

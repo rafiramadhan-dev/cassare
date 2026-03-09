@@ -126,11 +126,11 @@
 
 <script setup>
 // Import
-import { useAuthStore } from '@/stores/auth'
+import { useAuthenticationStore } from '~/stores/authentication'
 import { ref } from 'vue'
 
 // Variable
-const auth = useAuthStore()
+const auth = useAuthenticationStore()
 const step = ref('email')
 const email = ref('')
 const loadingEmail = ref(false)

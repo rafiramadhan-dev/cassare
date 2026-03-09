@@ -13,7 +13,6 @@ class AuthenticationController extends Controller
     // Login
     public function login(Request $request)
     {
-        // Validator
         $validator = Validator::make(
             $request->all(),
             [
@@ -164,7 +163,6 @@ class AuthenticationController extends Controller
     // Verify Otp
     public function verifyOtp(Request $request)
     {
-        // Validation
         $validator = Validator::make(
             $request->all(),
             [
@@ -203,7 +201,6 @@ class AuthenticationController extends Controller
     // Change Password
     public function changePassword(Request $request)
     {
-        // Validation
         $validator = Validator::make(
             $request->all(),
             [
